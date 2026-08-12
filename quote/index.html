@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Get a Quote | The Long Island Cleanout Company</title>
+  <meta name="description" content="Request a cleanout or junk removal quote with photo upload preview." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body data-page="quote">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="../">
+        <img class="brand__mark" src="../assets/logo.svg" alt="" />
+        <span class="brand__text"><strong>The Long Island</strong><span>Cleanout Company</span></span>
+      </a>
+      <button class="menu-toggle" data-menu-toggle aria-label="Open menu" aria-expanded="false"><span></span></button>
+      <nav class="nav" data-nav>
+        <a data-nav-link href="../">Home</a>
+        <a data-nav-link href="../services/">Services</a>
+        <a data-nav-link href="./">Quote</a>
+        <a data-nav-link href="../gallery/">Gallery</a>
+        <a data-nav-link href="../about/">About</a>
+        <a data-nav-link href="../contact/">Contact</a>
+      </nav>
+      <div class="header-actions"><a class="btn btn--ghost" href="mailto:longislandcleanoutcompany@gmail.com">Email us</a></div>
+    </div>
+  </header>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Get a quote</p>
+        <h1>Quote form with photo uploads and preview.</h1>
+        <p class="subtle" style="max-width:52rem;margin-top:1rem;">This front-end is wired to store demo leads in local storage so the admin page and payment flow have data to work with right away.</p>
+      </div>
+    </section>
+    <section class="section section--alt">
+      <div class="container grid grid--2">
+        <form class="quote-form" data-quote-form>
+          <div class="field-grid">
+            <div class="field">
+              <label for="name">Name</label>
+              <input id="name" name="name" required />
+            </div>
+            <div class="field">
+              <label for="phone">Phone</label>
+              <input id="phone" name="phone" required />
+            </div>
+            <div class="field">
+              <label for="email">Email</label>
+              <input id="email" name="email" type="email" required />
+            </div>
+            <div class="field">
+              <label for="service_type">Service type</label>
+              <select id="service_type" name="service_type">
+                <option>Junk Removal</option>
+                <option>Property Cleanout</option>
+                <option>Hauling</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="address">Property address</label>
+              <input id="address" name="address" required />
+            </div>
+            <div class="field">
+              <label for="preferred_date">Preferred date</label>
+              <input id="preferred_date" name="preferred_date" type="date" required />
+            </div>
+          </div>
+          <div class="field" style="margin-top:1rem;">
+            <label for="notes">Notes</label>
+            <textarea id="notes" name="notes" placeholder="Tell us about the job, access details, and any bulky items."></textarea>
+          </div>
+          <div class="field" style="margin-top:1rem;">
+            <label for="photos">Upload photos</label>
+            <input id="photos" name="photos" type="file" accept="image/*" multiple />
+          </div>
+          <div style="margin-top:1rem;">
+            <div class="upload-grid" data-photo-preview>
+              <div class="upload-tile">Upload up to 4 photos</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1rem;align-items:center;">
+            <button class="btn btn--primary" type="submit">Submit request</button>
+            <span class="subtle">This demo stores submissions locally until the backend is connected.</span>
+          </div>
+          <div class="note" data-form-status style="margin-top:1rem;">
+            <strong>Next step:</strong> connect this form to the database, email, SMS, and admin workflow.
+          </div>
+        </form>
+        <aside class="card service-card">
+          <p class="eyebrow">What happens next</p>
+          <h2>Designed to support the real operational flow.</h2>
+          <ul>
+            <li>Lead saved with photos and job notes</li>
+            <li>Quote sent to the customer with follow-up status</li>
+            <li>Accepted jobs move into scheduling and invoicing</li>
+            <li>Payment link lands on the invoice page</li>
+          </ul>
+          <div class="note" style="margin-top:1rem;">
+            The brief calls for email and SMS notifications on each state transition. This static build leaves the hooks in place for that layer.
+          </div>
+        </aside>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div><p class="eyebrow">Quote</p><p>Request a fast estimate for Nassau and Suffolk County.</p></div>
+      <div><p><a href="../services/">Services</a></p><p><a href="tel:+15165550100">(516) 555-0100</a></p></div>
+      <div><p><a href="mailto:longislandcleanoutcompany@gmail.com">longislandcleanoutcompany@gmail.com</a></p></div>
+    </div>
+  </footer>
+  <script src="../script.js"></script>
+</body>
+</html>

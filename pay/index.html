@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Invoice Payment | The Long Island Cleanout Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body data-page="pay">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="../"><img class="brand__mark" src="../assets/logo.svg" alt="" /><span class="brand__text"><strong>The Long Island</strong><span>Cleanout Company</span></span></a>
+      <nav class="nav" data-nav>
+        <a data-nav-link href="../">Home</a>
+        <a data-nav-link href="../services/">Services</a>
+        <a data-nav-link href="../quote/">Quote</a>
+        <a data-nav-link href="../contact/">Contact</a>
+      </nav>
+    </div>
+  </header>
+  <main class="section">
+    <div class="container">
+      <div class="invoice-panel card__body" data-invoice>
+        <p class="eyebrow">Invoice</p>
+        <h1>Payment page</h1>
+        <p class="subtle" style="margin-top:0.75rem;">Reference invoice <strong data-invoice-id>INV-2001</strong></p>
+        <div class="grid grid--2" style="margin-top:1.2rem;">
+          <div class="card service-card">
+            <h3>Job summary</h3>
+            <p>Customer-facing invoice page using the same visual language as the rest of the site.</p>
+            <ul data-line-items></ul>
+          </div>
+          <div class="card service-card">
+            <h3>Total due</h3>
+            <p style="font-size:2.5rem;font-family:Anton,sans-serif;color:var(--navy);line-height:1.1;" data-invoice-total>$640.00</p>
+            <p>Use this page for Stripe Checkout, payment links, or a future payment processor integration.</p>
+            <div style="margin-top:1rem;"><a class="btn btn--primary" href="#">Pay invoice</a></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <script src="../script.js"></script>
+</body>
+</html>

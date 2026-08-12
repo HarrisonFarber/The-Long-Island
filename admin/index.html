@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Admin | The Long Island Cleanout Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="icon" href="../assets/logo.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="../styles.css" />
+</head>
+<body data-page="admin">
+  <header class="site-header">
+    <div class="container site-header__inner">
+      <a class="brand" href="../"><img class="brand__mark" src="../assets/logo.svg" alt="" /><span class="brand__text"><strong>The Long Island</strong><span>Cleanout Company</span></span></a>
+      <button class="menu-toggle" data-menu-toggle aria-label="Open menu" aria-expanded="false"><span></span></button>
+      <nav class="nav" data-nav>
+        <a data-nav-link href="../">Home</a>
+        <a data-nav-link href="../services/">Services</a>
+        <a data-nav-link href="../quote/">Quote</a>
+        <a data-nav-link href="../gallery/">Gallery</a>
+        <a data-nav-link href="../about/">About</a>
+        <a data-nav-link href="../contact/">Contact</a>
+      </nav>
+      <div class="header-actions"><span class="pill">Protected area mockup</span></div>
+    </div>
+  </header>
+  <main>
+    <section class="page-hero">
+      <div class="container">
+        <p class="eyebrow">Admin</p>
+        <h1>Operations dashboard prototype.</h1>
+        <p class="subtle" style="max-width:54rem;margin-top:1rem;">This view previews the requests inbox, reporting, and status tracking that the brief calls for. It reads from local storage so the quote form has a visible workflow right away.</p>
+      </div>
+    </section>
+    <section class="section section--alt">
+      <div class="container">
+        <div class="reports">
+          <div class="report"><strong data-report>0</strong><span>Leads received</span></div>
+          <div class="report"><strong data-report>0</strong><span>Quotes sent</span></div>
+          <div class="report"><strong data-report>0%</strong><span>Conversion rate</span></div>
+          <div class="report"><strong data-report>$0</strong><span>Revenue collected</span></div>
+        </div>
+        <div class="card" style="padding:1rem;">
+          <div style="display:flex;justify-content:space-between;gap:1rem;align-items:center;flex-wrap:wrap;margin-bottom:1rem;">
+            <div>
+              <p class="eyebrow">Requests inbox</p>
+              <h2>Newest leads first</h2>
+            </div>
+            <label class="field" style="min-width:220px;">
+              <span class="subtle">Filter by status</span>
+              <select data-status-filter>
+                <option value="all">All</option>
+                <option value="new">New</option>
+                <option value="quoted">Quoted</option>
+                <option value="accepted">Accepted</option>
+                <option value="scheduled">Scheduled</option>
+                <option value="completed">Completed</option>
+                <option value="paid">Paid</option>
+              </select>
+            </label>
+          </div>
+          <div style="overflow:auto;">
+            <table class="table">
+              <thead>
+                <tr>
+                  <th>Lead ID</th>
+                  <th>Name</th>
+                  <th>Service</th>
+                  <th>Photos</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody data-leads-table></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+  <footer class="footer">
+    <div class="container footer__inner">
+      <div><p class="eyebrow">Admin</p><p>Lead intake, quotes, jobs, and invoice management go here.</p></div>
+      <div><p><a href="../quote/">Quote form</a></p><p><a href="tel:+15165550100">(516) 555-0100</a></p></div>
+      <div><p><a href="mailto:longislandcleanoutcompany@gmail.com">longislandcleanoutcompany@gmail.com</a></p></div>
+    </div>
+  </footer>
+  <script src="../script.js"></script>
+</body>
+</html>

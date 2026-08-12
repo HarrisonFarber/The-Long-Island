@@ -1,0 +1,38 @@
+/****************************************************************************************
+ Concept - Smart multi-purpose html5 template
+ To use this template you must have a license purchased at Themeforest (themeforest.com)
+ Copyright 2020 ForBetterWeb.com
+ ***************************************************************************************/
+
+.fa-li {
+    padding-top: 5px;
+}
+ul, ol {
+    margin-bottom: 3em;
+}
+p {
+    margin: 0 0 40px;
+}
+h1, h2, h3, h4, h5, h6 {
+    margin: 0 0 35px;
+    letter-spacing: 0.12em;
+    line-height: 1.6;
+}
+h3 {
+    padding: 35px 0 0;
+    overflow: hidden;
+    clear: both;
+    display: block;
+}
+h4 {
+    margin: 0 0 20px;
+}
+pre {
+    padding: 30px;
+    margin: 0 0 60px;
+    font-size: 14px;
+    line-height: 1.8;
+    color: #c7254e;
+    background-color: #eee;
+    border: 0;
+}
