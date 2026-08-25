@@ -8,20 +8,25 @@ export default function GalleryPage() {
   return (
     <>
       <section className="page-hero">
-        <div className="container">
+        <div className="container" data-reveal>
           <p className="eyebrow">Gallery</p>
-          <h1>Before and after photos that carry the proof.</h1>
-          <p className="subtle" style={{ maxWidth: "50rem", marginTop: "1rem" }}>
-            Use this layout for real job photos later. For now it is a clean, conversion-friendly
-            placeholder grid.
+          <h1>See the difference one visit makes.</h1>
+          <p style={{ maxWidth: "44rem", marginTop: "1.25rem", fontSize: "1.08rem" }}>
+            Real jobs, real transformations — packed garages, full basements, and estate cleanouts
+            turned back into usable space.
           </p>
         </div>
       </section>
-      <section className="section section--alt">
+      <section className="section">
         <div className="container">
           <div className="gallery">
-            {galleryCards.map((card) => (
-              <article key={card.title} className="card gallery-card">
+            {galleryCards.map((card, index) => (
+              <article
+                key={card.title}
+                className="card gallery-card"
+                data-reveal
+                style={{ "--d": `${index * 90}ms` }}
+              >
                 <div className="before-after">
                   <div className="before">
                     <span>Before</span>
@@ -36,6 +41,22 @@ export default function GalleryPage() {
                 </div>
               </article>
             ))}
+          </div>
+        </div>
+      </section>
+      <section className="section section--alt">
+        <div className="container">
+          <div className="cta-band" data-reveal>
+            <div>
+              <p className="eyebrow" style={{ color: "var(--green-bright)" }}>
+                Your turn
+              </p>
+              <h2>Ready for your own after photo?</h2>
+              <p>Send us a few before shots and we&apos;ll take care of the rest.</p>
+            </div>
+            <a className="btn btn--primary" href="/quote">
+              Get a free quote
+            </a>
           </div>
         </div>
       </section>

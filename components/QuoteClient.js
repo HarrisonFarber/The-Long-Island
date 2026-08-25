@@ -1,27 +1,15 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { site } from "../lib/site";
 
-const leadKey = "licc_leads";
-
-function readJSON(key, fallback) {
-  try {
-    return JSON.parse(localStorage.getItem(key) || "") || fallback;
-  } catch {
-    return fallback;
-  }
-}
-
-function writeJSON(key, value) {
-  localStorage.setItem(key, JSON.stringify(value));
-}
+const MAX_PHOTOS = 6;
 
 export default function QuoteClient() {
-  const [status, setStatus] = useState(
-    "Next step: connect this form to the database, email, SMS, and admin workflow."
-  );
-  const [previewNames, setPreviewNames] = useState(["Upload up to 4 photos"]);
+  const [sending, setSending] = useState(false);
+  const [result, setResult] = useState(null); // { ok, message }
+  const [previews, setPreviews] = useState([]);
+  const previewsRef = useRef([]);
 
   useEffect(() => {
     const min = new Date();
@@ -30,44 +18,57 @@ export default function QuoteClient() {
     if (input) {
       input.min = min.toISOString().slice(0, 10);
     }
+    return () => previewsRef.current.forEach((preview) => URL.revokeObjectURL(preview.url));
   }, []);
 
   const handleFiles = (event) => {
-    const files = Array.from(event.target.files || []).slice(0, 4);
-    setPreviewNames(files.length ? files.map((file) => file.name) : ["Upload up to 4 photos"]);
+    previewsRef.current.forEach((preview) => URL.revokeObjectURL(preview.url));
+    const files = Array.from(event.target.files || []).slice(0, MAX_PHOTOS);
+    const next = files.map((file) => ({ name: file.name, url: URL.createObjectURL(file) }));
+    previewsRef.current = next;
+    setPreviews(next);
   };
 
-  const submitLead = (event) => {
+  const submitLead = async (event) => {
     event.preventDefault();
-    const form = new FormData(event.currentTarget);
-    const lead = {
-      id: `LC-${Math.floor(1000 + Math.random() * 9000)}`,
-      createdAt: new Date().toISOString(),
-      name: String(form.get("name") || ""),
-      phone: String(form.get("phone") || ""),
-      email: String(form.get("email") || ""),
-      address: String(form.get("address") || ""),
-      serviceType: String(form.get("service_type") || ""),
-      preferredDate: String(form.get("preferred_date") || ""),
-      notes: String(form.get("notes") || ""),
-      photoCount: event.currentTarget.photos?.files?.length || 0,
-      status: "new",
-    };
+    const form = event.currentTarget;
+    setSending(true);
+    setResult(null);
 
-    const existing = readJSON(leadKey, []);
-    existing.unshift(lead);
-    writeJSON(leadKey, existing);
-    setStatus(
-      "Quote request saved locally. A backend endpoint can wire this to email, SMS, and the admin inbox next."
-    );
-    event.currentTarget.reset();
-    setPreviewNames(["Upload up to 4 photos"]);
+    try {
+      const response = await fetch("/api/quote", {
+        method: "POST",
+        body: new FormData(form),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (!response.ok) {
+        setResult({ ok: false, message: data.error || "Something went wrong. Please try again." });
+        return;
+      }
+
+      setResult({
+        ok: true,
+        message: `Request ${data.id} received! We'll review your details and photos and get back to you shortly.`,
+      });
+      form.reset();
+      previewsRef.current.forEach((preview) => URL.revokeObjectURL(preview.url));
+      previewsRef.current = [];
+      setPreviews([]);
+    } catch {
+      setResult({
+        ok: false,
+        message: `We couldn't send your request. Please try again or call ${site.phoneDisplay}.`,
+      });
+    } finally {
+      setSending(false);
+    }
   };
 
   return (
-    <section className="section section--alt">
+    <section className="section">
       <div className="container grid grid--2">
-        <form className="quote-form" onSubmit={submitLead}>
+        <form className="quote-form" onSubmit={submitLead} data-reveal>
           <div className="field-grid">
             {[
               ["name", "Name"],
@@ -86,7 +87,7 @@ export default function QuoteClient() {
                     <option>Hauling</option>
                   </select>
                 ) : (
-                  <input id={name} name={name} type={type || "text"} required />
+                  <input id={name} name={name} type={type || "text"} required={name !== "preferred_date"} />
                 )}
               </div>
             ))}
@@ -100,7 +101,7 @@ export default function QuoteClient() {
             />
           </div>
           <div className="field" style={{ marginTop: "1rem" }}>
-            <label htmlFor="photos">Upload photos</label>
+            <label htmlFor="photos">Upload photos (up to {MAX_PHOTOS})</label>
             <input
               id="photos"
               name="photos"
@@ -112,11 +113,25 @@ export default function QuoteClient() {
           </div>
           <div style={{ marginTop: "1rem" }}>
             <div className="upload-grid" data-photo-preview>
-              {previewNames.map((name) => (
-                <div key={name} className="upload-tile">
-                  {name}
-                </div>
-              ))}
+              {previews.length ? (
+                previews.map((preview) => (
+                  <div
+                    key={preview.url}
+                    className="upload-tile"
+                    style={{
+                      backgroundImage: `url(${preview.url})`,
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      color: "transparent",
+                    }}
+                    title={preview.name}
+                  >
+                    {preview.name}
+                  </div>
+                ))
+              ) : (
+                <div className="upload-tile">Photos help us quote faster</div>
+              )}
             </div>
           </div>
           <div
@@ -124,34 +139,45 @@ export default function QuoteClient() {
               display: "flex",
               gap: "0.75rem",
               flexWrap: "wrap",
-              marginTop: "1rem",
+              marginTop: "1.25rem",
               alignItems: "center",
             }}
           >
-            <button className="btn btn--primary" type="submit">
-              Submit request
+            <button className="btn btn--primary" type="submit" disabled={sending}>
+              {sending ? "Sending..." : "Send my quote request"}
             </button>
-            <span className="subtle">This demo stores submissions locally until the backend is connected.</span>
+            <span className="subtle">No obligation — quotes are always free.</span>
           </div>
-          <div className="note" data-form-status style={{ marginTop: "1rem" }}>
-            <strong>{status.startsWith("Next step") ? "Next step:" : "Saved:"}</strong> {status}
-          </div>
+          {result && (
+            <div
+              className="note"
+              data-form-status
+              style={{
+                marginTop: "1rem",
+                ...(result.ok
+                  ? {}
+                  : { borderLeftColor: "#c0392b", background: "rgba(192, 57, 43, 0.08)" }),
+              }}
+            >
+              {result.message}
+            </div>
+          )}
         </form>
-        <aside className="card service-card">
+        <aside className="card service-card" data-reveal style={{ "--d": "120ms" }}>
           <p className="eyebrow">What happens next</p>
-          <h2>Designed to support the real operational flow.</h2>
+          <h2>From photos to a cleared space.</h2>
           <ul>
-            <li>Lead saved with photos and job notes</li>
-            <li>Quote sent to the customer with follow-up status</li>
-            <li>Accepted jobs move into scheduling and invoicing</li>
-            <li>Payment link lands on the invoice page</li>
+            <li>We review your details and photos right away</li>
+            <li>You get a clear quote by email — no pressure, no hidden fees</li>
+            <li>Accept the quote, pick a date, and the crew shows up on time</li>
+            <li>We haul, sweep clean, and make payment easy</li>
           </ul>
           <div className="note" style={{ marginTop: "1rem" }}>
-            The brief calls for email and SMS notifications on each state transition. This static
-            build leaves the hooks in place for that layer.
+            Tip: wide shots of the whole room or pile help us quote faster and more accurately than
+            close-ups.
           </div>
           <p className="subtle" style={{ marginTop: "1rem" }}>
-            {site.email}
+            Prefer email? Reach us at {site.email}
           </p>
         </aside>
       </div>

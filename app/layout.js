@@ -1,6 +1,7 @@
 import "../styles.css";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
+import ScrollFx from "../components/ScrollFx";
 
 export const metadata = {
   title: {
@@ -24,6 +25,7 @@ export default function RootLayout({ children }) {
         <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
       </head>
       <body>
+        <ScrollFx />
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />

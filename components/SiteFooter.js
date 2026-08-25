@@ -14,35 +14,32 @@ export default function SiteFooter() {
               <span>{site.tagline}</span>
             </span>
           </Link>
-          <p style={{ marginTop: "1rem" }}>
-            Nassau and Suffolk County junk removal, property cleanouts, and hauling.
+          <p style={{ marginTop: "1.25rem", maxWidth: "26rem" }}>
+            Junk removal, property cleanouts, and hauling for Nassau and Suffolk County. Local
+            crews, honest quotes, and spaces you can use again.
           </p>
         </div>
         <div>
-          <p className="eyebrow">Pages</p>
-          <p>
+          <p className="eyebrow">Explore</p>
+          <div className="footer__links">
             <Link href="/services">Services</Link>
-          </p>
-          <p>
-            <Link href="/quote">Quote</Link>
-          </p>
-          <p>
+            <Link href="/quote">Get a Quote</Link>
             <Link href="/gallery">Gallery</Link>
-          </p>
+            <Link href="/about">About</Link>
+          </div>
         </div>
         <div>
           <p className="eyebrow">Contact</p>
-          <p>
+          <div className="footer__links">
             <a href={site.phoneHref}>{site.phoneDisplay}</a>
-          </p>
-          <p>
             <a href={`mailto:${site.email}`}>{site.email}</a>
-          </p>
-          <p>{site.cityState}</p>
+            <span>{site.serviceArea}</span>
+          </div>
         </div>
       </div>
       <div className="container footer__bottom">
-        <span>Copyright 2026 {site.name}</span>
+        <span>&copy; 2026 {site.name}. All rights reserved.</span>
+        <span>{site.tagline}</span>
       </div>
     </footer>
   );
