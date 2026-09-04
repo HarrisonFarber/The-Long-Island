@@ -2,7 +2,8 @@
 node_modules/
 .next/
 .env*.local
-
+.env.local
+.env
 # Next.js build output
 .next/
 out/

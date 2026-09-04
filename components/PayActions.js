@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 
-export default function PayActions({ invoice }) {
+export default function PayActions({ invoice, stripeConfigured = false }) {
   const [state, setState] = useState(invoice.status); // unpaid | paying | paid | error
 
   if (state === "paid" || invoice.status === "paid") {
@@ -18,6 +18,18 @@ export default function PayActions({ invoice }) {
       <a className="btn btn--primary" href={invoice.paymentLinkUrl}>
         Pay ${invoice.total.toFixed(2)} securely
       </a>
+    );
+  }
+
+  // Stripe is live but this invoice has no checkout link (e.g. it was created
+  // before Stripe was configured). The demo fallback is disabled in this mode,
+  // so don't offer it — point the customer to us for a fresh link.
+  if (stripeConfigured) {
+    return (
+      <div className="note">
+        This invoice doesn&apos;t have a payment link yet. Please contact us and we&apos;ll resend a
+        secure payment link.
+      </div>
     );
   }
 

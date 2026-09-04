@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import { getRecord } from "../../../lib/server/store";
+import { stripeConfigured } from "../../../lib/server/stripe";
 import { site } from "../../../lib/site";
 import PayActions from "../../../components/PayActions";
 
@@ -70,7 +71,7 @@ export default async function InvoicePage({ params, searchParams }) {
                 ${invoice.total.toFixed(2)}
               </p>
               <div style={{ marginTop: "1.25rem" }}>
-                <PayActions invoice={invoice} />
+                <PayActions invoice={invoice} stripeConfigured={stripeConfigured()} />
               </div>
               <p className="subtle" style={{ marginTop: "1.25rem", fontSize: "0.9rem" }}>
                 Questions about this invoice? Email {site.email} or text {site.phoneDisplay}.

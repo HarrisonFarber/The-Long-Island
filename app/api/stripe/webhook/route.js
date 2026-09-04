@@ -16,8 +16,12 @@ export async function POST(request) {
   if (event.type === "checkout.session.completed") {
     const session = event.data?.object;
     const invoiceId = session?.metadata?.invoiceId;
-    const invoice = invoiceId ? await getRecord("invoices", invoiceId) : null;
+    // Only settle a session that actually collected payment (guards against
+    // async/delayed payment methods that complete but aren't paid yet).
+    const isPaid = session?.payment_status === "paid";
+    const invoice = invoiceId && isPaid ? await getRecord("invoices", invoiceId) : null;
 
+    // Idempotent: a replayed event finds the invoice already "paid" and no-ops.
     if (invoice && invoice.status !== "paid") {
       const paid = await updateRecord("invoices", invoiceId, {
         status: "paid",
