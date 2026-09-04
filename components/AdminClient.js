@@ -58,10 +58,12 @@ function LoginCard({ onLogin }) {
           </button>
           {error && <span style={{ color: "#c0392b" }}>{error}</span>}
         </div>
-        <p className="subtle" style={{ marginTop: "1rem", fontSize: "0.88rem" }}>
-          Dev default password: <code>cleanout-admin</code> — set ADMIN_PASSWORD in .env.local to
-          change it.
-        </p>
+        {process.env.NODE_ENV !== "production" && (
+          <p className="subtle" style={{ marginTop: "1rem", fontSize: "0.88rem" }}>
+            Dev default password: <code>cleanout-admin</code> — set ADMIN_PASSWORD in .env.local to
+            change it.
+          </p>
+        )}
       </form>
     </div>
   );

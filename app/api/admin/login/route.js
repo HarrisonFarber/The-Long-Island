@@ -1,6 +1,16 @@
 import { NextResponse } from "next/server";
 import crypto from "crypto";
-import { adminPassword, sessionCookieHeader, clearSessionCookieHeader } from "../../../../lib/server/auth";
+import {
+  adminPassword,
+  createSessionValue,
+  sessionCookieOptions,
+  clearSessionCookieOptions,
+  SESSION_COOKIE,
+} from "../../../../lib/server/auth";
+
+// Auth must never be cached and needs the Node runtime for `crypto`.
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
 
 export async function POST(request) {
   const { password } = await request.json().catch(() => ({}));
@@ -14,12 +24,12 @@ export async function POST(request) {
   }
 
   const response = NextResponse.json({ ok: true });
-  response.headers.set("Set-Cookie", sessionCookieHeader());
+  response.cookies.set(SESSION_COOKIE, createSessionValue(), sessionCookieOptions());
   return response;
 }
 
 export async function DELETE() {
   const response = NextResponse.json({ ok: true });
-  response.headers.set("Set-Cookie", clearSessionCookieHeader());
+  response.cookies.set(SESSION_COOKIE, "", clearSessionCookieOptions());
   return response;
 }

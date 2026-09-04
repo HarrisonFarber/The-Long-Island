@@ -3,6 +3,10 @@ import { listRecords, usingSupabase } from "../../../../lib/server/store";
 import { isAdmin, isDefaultPassword } from "../../../../lib/server/auth";
 import { stripeConfigured } from "../../../../lib/server/stripe";
 
+// Reads the session cookie per-request — must always run dynamically.
+export const runtime = "nodejs";
+export const dynamic = "force-dynamic";
+
 export async function GET(request) {
   if (!isAdmin(request)) {
     return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
