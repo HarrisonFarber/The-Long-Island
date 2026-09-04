@@ -2,6 +2,7 @@ import "../styles.css";
 import SiteHeader from "../components/SiteHeader";
 import SiteFooter from "../components/SiteFooter";
 import ScrollFx from "../components/ScrollFx";
+import { site } from "../lib/site";
 
 export const metadata = {
   title: {
@@ -29,7 +30,7 @@ export default function RootLayout({ children }) {
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
-        <a className="floating-call" href="sms:+15165550100">
+        <a className="floating-call" href={site.smsHref}>
           Text us
         </a>
       </body>
