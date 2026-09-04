@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getRecord, updateRecord } from "../../../../../lib/server/store";
 import { stripeConfigured } from "../../../../../lib/server/stripe";
 import { notifyPaid } from "../../../../../lib/server/notify";
+import { serverErrorResponse } from "../../../../../lib/server/http";
 
 /**
  * Demo payment for local/dev use only. Once Stripe is configured this route
@@ -13,23 +14,28 @@ export async function POST(request, { params }) {
   }
 
   const { id } = await params;
-  const invoice = await getRecord("invoices", id);
-  if (!invoice) {
-    return NextResponse.json({ error: "Invoice not found." }, { status: 404 });
-  }
-  if (invoice.status === "paid") {
-    return NextResponse.json({ ok: true, invoice });
-  }
 
-  const paid = await updateRecord("invoices", id, {
-    status: "paid",
-    paidAt: new Date().toISOString(),
-    paymentMethod: "demo",
-  });
-  const lead = await updateRecord("leads", invoice.leadId, { status: "paid" });
-  if (lead) {
-    await notifyPaid(lead, paid);
-  }
+  try {
+    const invoice = await getRecord("invoices", id);
+    if (!invoice) {
+      return NextResponse.json({ error: "Invoice not found." }, { status: 404 });
+    }
+    if (invoice.status === "paid") {
+      return NextResponse.json({ ok: true, invoice });
+    }
 
-  return NextResponse.json({ ok: true, invoice: paid });
+    const paid = await updateRecord("invoices", id, {
+      status: "paid",
+      paidAt: new Date().toISOString(),
+      paymentMethod: "demo",
+    });
+    const lead = await updateRecord("leads", invoice.leadId, { status: "paid" });
+    if (lead) {
+      await notifyPaid(lead, paid);
+    }
+
+    return NextResponse.json({ ok: true, invoice: paid });
+  } catch (error) {
+    return serverErrorResponse(error, "invoices/[id]/demo-pay");
+  }
 }

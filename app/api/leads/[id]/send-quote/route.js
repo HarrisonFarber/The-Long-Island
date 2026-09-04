@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getRecord, insertRecord, updateRecord, newId } from "../../../../../lib/server/store";
 import { isAdmin } from "../../../../../lib/server/auth";
 import { notifyQuoteSent } from "../../../../../lib/server/notify";
+import { serverErrorResponse } from "../../../../../lib/server/http";
 
 export async function POST(request, { params }) {
   if (!isAdmin(request)) {
@@ -17,23 +18,27 @@ export async function POST(request, { params }) {
     return NextResponse.json({ error: "Enter a valid quote amount." }, { status: 400 });
   }
 
-  const lead = await getRecord("leads", id);
-  if (!lead) {
-    return NextResponse.json({ error: "Lead not found." }, { status: 404 });
+  try {
+    const lead = await getRecord("leads", id);
+    if (!lead) {
+      return NextResponse.json({ error: "Lead not found." }, { status: 404 });
+    }
+
+    const quote = {
+      id: newId("Q"),
+      leadId: lead.id,
+      amount: Math.round(amount * 100) / 100,
+      notes,
+      sentAt: new Date().toISOString(),
+      acceptedAt: null,
+    };
+
+    await insertRecord("quotes", quote);
+    const updated = await updateRecord("leads", id, { status: "quoted", quoteId: quote.id });
+    await notifyQuoteSent(updated, quote);
+
+    return NextResponse.json({ ok: true, quote, lead: updated });
+  } catch (error) {
+    return serverErrorResponse(error, "leads/[id]/send-quote");
   }
-
-  const quote = {
-    id: newId("Q"),
-    leadId: lead.id,
-    amount: Math.round(amount * 100) / 100,
-    notes,
-    sentAt: new Date().toISOString(),
-    acceptedAt: null,
-  };
-
-  await insertRecord("quotes", quote);
-  const updated = await updateRecord("leads", id, { status: "quoted", quoteId: quote.id });
-  await notifyQuoteSent(updated, quote);
-
-  return NextResponse.json({ ok: true, quote, lead: updated });
 }

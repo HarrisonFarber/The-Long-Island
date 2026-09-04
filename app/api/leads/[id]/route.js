@@ -2,6 +2,7 @@ import { NextResponse } from "next/server";
 import { getRecord, updateRecord } from "../../../../lib/server/store";
 import { isAdmin } from "../../../../lib/server/auth";
 import { notifyScheduled } from "../../../../lib/server/notify";
+import { serverErrorResponse } from "../../../../lib/server/http";
 
 const STATUSES = ["new", "quoted", "accepted", "scheduled", "completed", "paid", "closed_lost"];
 
@@ -16,18 +17,22 @@ export async function PATCH(request, { params }) {
     return NextResponse.json({ error: "Invalid status." }, { status: 400 });
   }
 
-  const lead = await getRecord("leads", id);
-  if (!lead) {
-    return NextResponse.json({ error: "Lead not found." }, { status: 404 });
+  try {
+    const lead = await getRecord("leads", id);
+    if (!lead) {
+      return NextResponse.json({ error: "Lead not found." }, { status: 404 });
+    }
+
+    const previous = lead.status;
+    const updated = await updateRecord("leads", id, { status });
+
+    // Notifications fire on state transitions, not UI actions.
+    if (status === "scheduled" && previous !== "scheduled") {
+      await notifyScheduled(updated);
+    }
+
+    return NextResponse.json({ ok: true, lead: updated });
+  } catch (error) {
+    return serverErrorResponse(error, "leads/[id] PATCH");
   }
-
-  const previous = lead.status;
-  const updated = await updateRecord("leads", id, { status });
-
-  // Notifications fire on state transitions, not UI actions.
-  if (status === "scheduled" && previous !== "scheduled") {
-    await notifyScheduled(updated);
-  }
-
-  return NextResponse.json({ ok: true, lead: updated });
 }
