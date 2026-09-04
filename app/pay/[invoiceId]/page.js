@@ -73,7 +73,7 @@ export default async function InvoicePage({ params, searchParams }) {
                 <PayActions invoice={invoice} />
               </div>
               <p className="subtle" style={{ marginTop: "1.25rem", fontSize: "0.9rem" }}>
-                Questions about this invoice? Email {site.email} or call {site.phoneDisplay}.
+                Questions about this invoice? Email {site.email} or text {site.phoneDisplay}.
               </p>
             </div>
           </div>

@@ -29,8 +29,8 @@ export default function RootLayout({ children }) {
         <SiteHeader />
         <main>{children}</main>
         <SiteFooter />
-        <a className="floating-call" href="tel:+15165550100">
-          Call now
+        <a className="floating-call" href="sms:+15165550100">
+          Text us
         </a>
       </body>
     </html>

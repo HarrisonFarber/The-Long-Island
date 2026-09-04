@@ -60,7 +60,7 @@ export async function POST(request) {
   } catch (error) {
     console.error("Quote submission failed:", error);
     return NextResponse.json(
-      { error: "Something went wrong saving your request. Please call us instead." },
+      { error: "Something went wrong saving your request. Please text us instead." },
       { status: 500 }
     );
   }

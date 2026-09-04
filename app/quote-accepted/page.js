@@ -10,11 +10,11 @@ export default function QuoteAcceptedPage() {
     <section className="page-hero" style={{ paddingBottom: "6rem" }}>
       <div className="container" data-reveal>
         <p className="eyebrow">You&apos;re booked in</p>
-        <h1>Quote accepted — we&apos;ll call you to schedule.</h1>
+        <h1>Quote accepted — we&apos;ll text you to schedule.</h1>
         <p style={{ maxWidth: "44rem", marginTop: "1.25rem", fontSize: "1.08rem" }}>
           Thanks for choosing The Long Island Cleanout Company. We&apos;ve been notified and will
-          reach out shortly to lock in your date. Questions in the meantime? Call{" "}
-          <a href={site.phoneHref} style={{ color: "var(--green-bright)" }}>
+          text you shortly to lock in your date. Questions in the meantime? Text{" "}
+          <a href={site.smsHref} style={{ color: "var(--green-bright)" }}>
             {site.phoneDisplay}
           </a>
           .

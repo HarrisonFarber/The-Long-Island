@@ -31,7 +31,7 @@ export default function SiteFooter() {
         <div>
           <p className="eyebrow">Contact</p>
           <div className="footer__links">
-            <a href={site.phoneHref}>{site.phoneDisplay}</a>
+            <a href={site.smsHref}>Text {site.phoneDisplay}</a>
             <a href={`mailto:${site.email}`}>{site.email}</a>
             <span>{site.serviceArea}</span>
           </div>

@@ -117,8 +117,8 @@ export default function HomePage() {
               <h2>Whatever needs to go, we haul it.</h2>
             </div>
             <p>
-              From a single couch to a full estate cleanout — one call covers the lifting, loading,
-              hauling, and disposal.
+              From a single couch to a full estate cleanout — one request covers the lifting,
+              loading, hauling, and disposal.
             </p>
           </div>
           <div className="grid grid--3">

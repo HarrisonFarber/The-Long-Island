@@ -18,7 +18,7 @@ export default function SiteHeader() {
             <span>{site.serviceArea}</span>
           </div>
           <div className="topbar__actions">
-            <a href={site.phoneHref}>{site.phoneDisplay}</a>
+            <a href={site.smsHref}>Text {site.phoneDisplay}</a>
             <a href={`mailto:${site.email}`}>{site.email}</a>
           </div>
         </div>

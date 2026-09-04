@@ -29,7 +29,7 @@ export default function ServicesPage() {
       <section className="page-hero">
         <div className="container" data-reveal>
           <p className="eyebrow">Services</p>
-          <h1>One call clears it all.</h1>
+          <h1>One request clears it all.</h1>
           <p style={{ maxWidth: "44rem", marginTop: "1.25rem", fontSize: "1.08rem" }}>
             Junk removal, property cleanouts, and hauling — handled by a local crew that shows up on
             time, works carefully, and leaves the space broom-clean.

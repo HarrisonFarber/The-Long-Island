@@ -10,10 +10,10 @@ export default function ContactPage() {
       <section className="page-hero">
         <div className="container" data-reveal>
           <p className="eyebrow">Contact</p>
-          <h1>Call, text, or email — we answer fast.</h1>
+          <h1>Text us or request a quote online — we answer fast.</h1>
           <p style={{ maxWidth: "44rem", marginTop: "1.25rem", fontSize: "1.08rem" }}>
-            Questions about a job, scheduling, or pricing? Reach out and a real person from the crew
-            will get back to you.
+            The quickest ways to reach us are a text or the online quote form — send a few photos and
+            job details and a real person from the crew will get right back to you.
           </p>
         </div>
       </section>
@@ -25,7 +25,8 @@ export default function ContactPage() {
             <ul className="list" style={{ marginTop: "1.25rem" }}>
               <li>
                 <span>
-                  <strong>Phone:</strong> <a href={site.phoneHref}>{site.phoneDisplay}</a>
+                  <strong>Text (preferred):</strong>{" "}
+                  <a href={site.smsHref}>{site.phoneDisplay}</a>
                 </span>
               </li>
               <li>
@@ -35,18 +36,26 @@ export default function ContactPage() {
               </li>
               <li>
                 <span>
+                  <strong>Prefer to talk?</strong> Call <a href={site.phoneHref}>{site.phoneDisplay}</a>
+                </span>
+              </li>
+              <li>
+                <span>
                   <strong>Service area:</strong> {site.serviceArea}
                 </span>
               </li>
               <li>
                 <span>
-                  <strong>Hours:</strong> Mon–Sat, early to evening — call for same-day availability
+                  <strong>Hours:</strong> Mon–Sat, early to evening — text for same-day availability
                 </span>
               </li>
             </ul>
-            <div style={{ marginTop: "1.5rem" }}>
+            <div style={{ marginTop: "1.5rem", display: "flex", flexWrap: "wrap", gap: "0.75rem" }}>
               <a className="btn btn--primary" href="/quote">
                 Get a free quote
+              </a>
+              <a className="btn btn--ghost" href={site.smsHref}>
+                Text us
               </a>
             </div>
           </div>

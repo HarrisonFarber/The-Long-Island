@@ -58,7 +58,7 @@ export default function QuoteClient() {
     } catch {
       setResult({
         ok: false,
-        message: `We couldn't send your request. Please try again or call ${site.phoneDisplay}.`,
+        message: `We couldn't send your request. Please try again or text us at ${site.phoneDisplay}.`,
       });
     } finally {
       setSending(false);
