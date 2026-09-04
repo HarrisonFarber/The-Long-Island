@@ -985,52 +985,28 @@ p {
   overflow: hidden;
 }
 
-.before-after {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+.gallery-card__media {
+  position: relative;
   overflow: hidden;
+  aspect-ratio: 16 / 9;
+  background: var(--paper-2);
 }
 
-.before-after > div {
-  position: relative;
-  min-height: 150px;
-  padding: 0.85rem;
-  color: #fff;
-  display: flex;
-  align-items: flex-end;
-  font-family: "Barlow Condensed", sans-serif;
-  text-transform: uppercase;
-  letter-spacing: 0.16em;
-  font-size: 0.9rem;
+.gallery-card__media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   transition: transform 500ms var(--ease-smooth);
 }
 
-.gallery-card:hover .before-after > div {
-  transform: scale(1.05);
+.gallery-card:hover .gallery-card__media img {
+  transform: scale(1.04);
 }
 
-.before-after > div span {
-  background: rgba(14, 21, 32, 0.82);
-  padding: 0.35rem 0.6rem;
-  border-radius: 8px;
-  -webkit-backdrop-filter: blur(6px);
-  backdrop-filter: blur(6px);
-}
-
-.before {
-  background:
-    linear-gradient(150deg, rgba(96, 104, 112, 0.85), rgba(42, 48, 55, 0.85)),
-    radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.35), transparent 40%);
-}
-
-.after {
-  background:
-    linear-gradient(150deg, rgba(105, 181, 72, 0.88), rgba(60, 110, 44, 0.8)),
-    radial-gradient(circle at 65% 30%, rgba(255, 255, 255, 0.35), transparent 40%);
-}
-
-.after span {
-  background: rgba(76, 143, 51, 0.9);
+/* Two-up layout for the dedicated gallery page so before/after detail reads clearly */
+.gallery--wide {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
 }
 
 .gallery-card .card__body strong {

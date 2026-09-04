@@ -213,7 +213,7 @@ export default function HomePage() {
               <h2>Before and after, the proof is in the space.</h2>
             </div>
             <p>
-              Garages, basements, estates, and rental turnovers — see the kind of transformation one
+              Garages, carports, side yards, and storage spaces — see the kind of transformation one
               visit makes.
             </p>
           </div>
@@ -225,13 +225,13 @@ export default function HomePage() {
                 data-reveal
                 style={{ "--d": `${index * 90}ms` }}
               >
-                <div className="before-after">
-                  <div className="before">
-                    <span>Before</span>
-                  </div>
-                  <div className="after">
-                    <span>After</span>
-                  </div>
+                <div className="gallery-card__media">
+                  <img
+                    src={card.image}
+                    alt={`${card.title} — before and after`}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <div className="card__body">
                   <strong>{card.title}</strong>

@@ -12,14 +12,14 @@ export default function GalleryPage() {
           <p className="eyebrow">Gallery</p>
           <h1>See the difference one visit makes.</h1>
           <p style={{ maxWidth: "44rem", marginTop: "1.25rem", fontSize: "1.08rem" }}>
-            Real jobs, real transformations — packed garages, full basements, and estate cleanouts
+            Real jobs, real transformations — packed garages, carports, and cluttered side yards
             turned back into usable space.
           </p>
         </div>
       </section>
       <section className="section">
         <div className="container">
-          <div className="gallery">
+          <div className="gallery gallery--wide">
             {galleryCards.map((card, index) => (
               <article
                 key={card.title}
@@ -27,13 +27,13 @@ export default function GalleryPage() {
                 data-reveal
                 style={{ "--d": `${index * 90}ms` }}
               >
-                <div className="before-after">
-                  <div className="before">
-                    <span>Before</span>
-                  </div>
-                  <div className="after">
-                    <span>After</span>
-                  </div>
+                <div className="gallery-card__media">
+                  <img
+                    src={card.image}
+                    alt={`${card.title} — before and after`}
+                    loading="lazy"
+                    decoding="async"
+                  />
                 </div>
                 <div className="card__body">
                   <strong>{card.title}</strong>
