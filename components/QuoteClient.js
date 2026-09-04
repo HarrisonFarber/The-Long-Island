@@ -8,6 +8,7 @@ const MAX_PHOTOS = 6;
 export default function QuoteClient() {
   const [sending, setSending] = useState(false);
   const [result, setResult] = useState(null); // { ok, message }
+  const [confirmation, setConfirmation] = useState(null); // { id } — set only after a confirmed submission
   const [previews, setPreviews] = useState([]);
   const previewsRef = useRef([]);
 
@@ -47,14 +48,13 @@ export default function QuoteClient() {
         return;
       }
 
-      setResult({
-        ok: true,
-        message: `Request ${data.id} received! We'll review your details and photos and get back to you shortly.`,
-      });
+      // Success is only reached after the API confirms the lead was saved (response.ok).
       form.reset();
       previewsRef.current.forEach((preview) => URL.revokeObjectURL(preview.url));
       previewsRef.current = [];
       setPreviews([]);
+      setResult(null);
+      setConfirmation({ id: data.id });
     } catch {
       setResult({
         ok: false,
@@ -64,6 +64,75 @@ export default function QuoteClient() {
       setSending(false);
     }
   };
+
+  if (confirmation) {
+    return (
+      <section className="section">
+        <div className="container grid grid--2">
+          <div
+            className="card service-card"
+            data-reveal
+            data-form-status
+            role="status"
+            aria-live="polite"
+            style={{ borderColor: "rgba(105, 181, 72, 0.4)" }}
+          >
+            <span
+              aria-hidden="true"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                justifyContent: "center",
+                width: "3.25rem",
+                height: "3.25rem",
+                borderRadius: "999px",
+                background: "rgba(105, 181, 72, 0.12)",
+                color: "var(--green-dark)",
+                fontSize: "1.6rem",
+                marginBottom: "1rem",
+              }}
+            >
+              ✓
+            </span>
+            <p className="eyebrow">Request received</p>
+            <h2>Thanks for submitting your quote request.</h2>
+            <p style={{ color: "var(--ink-soft)", marginTop: "0.5rem" }}>
+              Someone from our team will be with you shortly. We&apos;ll review your details and
+              photos and follow up with a clear, no-obligation quote by email.
+            </p>
+            {confirmation.id && (
+              <div className="note" style={{ marginTop: "1.25rem" }}>
+                Your reference number is <strong>{confirmation.id}</strong> — keep it handy if you
+                need to reach out.
+              </div>
+            )}
+            <div style={{ marginTop: "1.5rem" }}>
+              <button
+                className="btn btn--primary"
+                type="button"
+                onClick={() => setConfirmation(null)}
+              >
+                Submit another request
+              </button>
+            </div>
+          </div>
+          <aside className="card service-card" data-reveal style={{ "--d": "120ms" }}>
+            <p className="eyebrow">What happens next</p>
+            <h2>From photos to a cleared space.</h2>
+            <ul>
+              <li>We review your details and photos right away</li>
+              <li>You get a clear quote by email — no pressure, no hidden fees</li>
+              <li>Accept the quote, pick a date, and the crew shows up on time</li>
+              <li>We haul, sweep clean, and make payment easy</li>
+            </ul>
+            <p className="subtle" style={{ marginTop: "1rem" }}>
+              Prefer email? Reach us at {site.email}
+            </p>
+          </aside>
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="section">
