@@ -252,9 +252,9 @@ export default function HomePage() {
             </div>
           </div>
           <div className="grid grid--3">
-            {testimonials.map((text, index) => (
+            {testimonials.map((testimonial, index) => (
               <figure
-                key={text}
+                key={testimonial.text}
                 className="card quote-card"
                 data-reveal
                 style={{ "--d": `${index * 110}ms` }}
@@ -262,8 +262,8 @@ export default function HomePage() {
                 <span className="quote-card__stars" aria-label="5 star review">
                   ★★★★★
                 </span>
-                <blockquote>&ldquo;{text}&rdquo;</blockquote>
-                <figcaption>Long Island customer</figcaption>
+                <blockquote>&ldquo;{testimonial.text}&rdquo;</blockquote>
+                <figcaption>{testimonial.location}</figcaption>
               </figure>
             ))}
           </div>
