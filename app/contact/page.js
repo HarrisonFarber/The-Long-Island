@@ -67,19 +67,7 @@ export default function ContactPage() {
               Island, you&apos;re in our service area.
             </p>
             <div className="map-box" style={{ marginTop: "1.25rem" }}>
-              <svg viewBox="0 0 800 360" aria-hidden="true">
-                <rect width="800" height="360" rx="24" fill="#EEF6EA" />
-                <path
-                  d="M110 192c80-72 157-92 238-92 91 0 137 35 199 35 58 0 83-18 119-18 42 0 70 15 104 36-23 29-70 55-118 55-57 0-94-28-148-28-66 0-118 36-196 36-58 0-133-10-198-24z"
-                  fill="#18222F"
-                  opacity="0.9"
-                />
-                <path
-                  d="M150 208c70 16 138 18 200 8 76-13 102-40 170-40 48 0 77 19 106 28-60 32-112 52-163 52-59 0-99-17-175-17-57 0-100 5-137 17-40-10-63-26-77-48z"
-                  fill="#69B548"
-                  opacity="0.9"
-                />
-              </svg>
+              <img className="map-box__logo" src="/assets/logo.jpg" alt={site.name} />
             </div>
           </div>
         </div>

@@ -185,22 +185,8 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <div className="map-box" aria-hidden="true" data-reveal style={{ "--d": "150ms" }}>
-            <svg viewBox="0 0 800 480" role="img" aria-label="Simplified Long Island silhouette">
-              <rect width="800" height="480" rx="28" fill="#101B26" />
-              <path
-                d="M120 260c80-70 154-92 240-92 98 0 140 35 201 35 59 0 82-18 120-18 42 0 68 17 99 35-18 25-67 55-118 55-57 0-92-27-146-27-66 0-116 35-196 35-58 0-132-10-200-23z"
-                fill="#2A3644"
-                opacity="0.9"
-              />
-              <path
-                d="M159 276c72 18 143 20 207 8 79-14 106-42 177-42 50 0 80 20 110 29-62 34-117 55-170 55-61 0-103-18-182-18-59 0-104 5-142 18-42-10-66-27-80-50z"
-                fill="#69B548"
-                opacity="0.92"
-              />
-              <circle cx="612" cy="143" r="24" fill="#69B548" />
-              <path d="M612 120v46M589 143h46" stroke="#101B26" strokeWidth="8" strokeLinecap="round" />
-            </svg>
+          <div className="map-box" data-reveal style={{ "--d": "150ms" }}>
+            <img className="map-box__logo" src="/assets/logo.jpg" alt={site.name} />
           </div>
         </div>
       </section>

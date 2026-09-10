@@ -954,6 +954,14 @@ p {
   border-radius: calc(var(--radius) - 6px);
 }
 
+.map-box__logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  border-radius: calc(var(--radius) - 6px);
+  background: #fff;
+}
+
 .map-box__legend {
   margin-top: 1.25rem;
   display: flex;
