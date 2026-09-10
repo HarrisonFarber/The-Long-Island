@@ -943,7 +943,7 @@ p {
 }
 
 .section:not(.section--dark) .map-box {
-  background: #fff;
+  background: #eef6ea;
   border-color: var(--line);
   box-shadow: var(--shadow-sm);
 }
@@ -957,9 +957,13 @@ p {
 .map-box__logo {
   display: block;
   width: 100%;
+  max-width: 340px;
   height: auto;
-  border-radius: calc(var(--radius) - 6px);
+  margin: 0 auto;
+  padding: 16px;
+  border-radius: 20px;
   background: #fff;
+  box-shadow: 0 18px 40px -18px rgba(14, 21, 32, 0.55);
 }
 
 .map-box__legend {
