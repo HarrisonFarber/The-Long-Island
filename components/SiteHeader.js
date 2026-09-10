@@ -4,7 +4,6 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import { navLinks, site } from "../lib/site";
-import LogoMark from "./LogoMark";
 
 export default function SiteHeader() {
   const pathname = usePathname();
@@ -26,11 +25,7 @@ export default function SiteHeader() {
       <header className="site-header">
         <div className="container site-header__inner">
           <Link className="brand" href="/">
-            <LogoMark ariaLabel={site.name} />
-            <span className="brand__text">
-              <strong>The Long Island</strong>
-              <span>Cleanout Company</span>
-            </span>
+            <img className="brand__logo" src="/assets/logo.jpg" alt={site.name} />
           </Link>
           <button
             className="menu-toggle"

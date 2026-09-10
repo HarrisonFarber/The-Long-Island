@@ -231,6 +231,27 @@ p {
   transform: rotate(-6deg) scale(1.05);
 }
 
+.brand__logo {
+  height: 64px;
+  width: auto;
+  flex: 0 0 auto;
+  display: block;
+  border-radius: 12px;
+  transition: transform 400ms var(--ease-smooth);
+}
+
+.brand:hover .brand__logo {
+  transform: scale(1.04);
+}
+
+.brand--footer .brand__logo {
+  height: 96px;
+  background: #fff;
+  padding: 10px 14px;
+  border-radius: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
 .brand__text strong {
   display: block;
   font-family: "Barlow Condensed", sans-serif;
@@ -1514,6 +1535,10 @@ p {
   .brand__mark {
     width: 44px;
     height: 44px;
+  }
+
+  .brand__logo {
+    height: 52px;
   }
 
   .nav {

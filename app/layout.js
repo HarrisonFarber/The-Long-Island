@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
           href="https://fonts.googleapis.com/css2?family=Anton&family=Barlow+Condensed:wght@600;700&family=Inter:wght@400;500;600;700&display=swap"
           rel="stylesheet"
         />
-        <link rel="icon" href="/assets/logo.svg" type="image/svg+xml" />
+        <link rel="icon" href="/assets/logo.jpg" type="image/jpeg" />
       </head>
       <body>
         <ScrollFx />

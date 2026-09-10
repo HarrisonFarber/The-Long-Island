@@ -1,18 +1,13 @@
 import Link from "next/link";
 import { site } from "../lib/site";
-import LogoMark from "./LogoMark";
 
 export default function SiteFooter() {
   return (
     <footer className="footer">
       <div className="container footer__inner">
         <div>
-          <Link className="brand" href="/">
-            <LogoMark ariaLabel="" />
-            <span className="brand__text">
-              <strong>{site.name}</strong>
-              <span>{site.tagline}</span>
-            </span>
+          <Link className="brand brand--footer" href="/">
+            <img className="brand__logo" src="/assets/logo.jpg" alt={site.name} />
           </Link>
           <p style={{ marginTop: "1.25rem", maxWidth: "26rem" }}>
             Junk removal, property cleanouts, and hauling for Nassau and Suffolk County. Local
